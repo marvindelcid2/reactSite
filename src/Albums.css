@@ -1,0 +1,20 @@
+
+
+.row{
+    display: flex;
+    background-color: darkgrey;
+    border-color: black;
+    flex-flow:row nowrap;
+    width:auto;
+    
+}
+
+.column{
+    flex-grow:1;
+    background-color: rgb(85, 119, 147);
+    border: 1.5px solid black;
+    padding: .5rem;
+    margin: .5rem;
+    font-size: 1rem;
+    font-weight: 400;
+}

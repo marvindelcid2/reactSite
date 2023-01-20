@@ -1,13 +1,12 @@
 
-export function GetAllAlbums(clientID, userName) {
-
-    return fetch(`https://api.imgur.com/3/account/${userName}/albums`,{
+export async function GetAllAlbums(clientID, userName) {
+    const responseData = await fetch(`https://api.imgur.com/3/account/${userName}/albums`,{
         method: 'GET',
         headers: new Headers({
-            'Authorization': 'Client-ID a0f7fb78a4fab86'
+            'Authorization': `Client-ID ${clientID}`
         })
-    })
-
+    }).then(data => data.json())
+    return responseData;
 }
 
 export function DeleteAlbum() {
