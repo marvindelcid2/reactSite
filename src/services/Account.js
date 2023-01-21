@@ -9,6 +9,16 @@ export async function GetAllAlbums(clientID, userName) {
     return responseData;
 }
 
-export function DeleteAlbum() {
-
+export async function DeleteAlbum(albumID, accessToken, userName) {
+    const responseData = await fetch(`https://api.imgur.com/3/account/${userName}/album/${albumID}`,{
+        method: 'DEL',
+        headers: new Headers({
+            'Authorization': `Bearer ${accessToken}`,
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'X-Requested-With',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin'
+        })
+    }).then(data => data.json())
+    return responseData;
 }
