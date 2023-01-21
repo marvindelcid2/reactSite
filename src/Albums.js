@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Albums.css';
+import './css/Albums.css';
 import { GetAllAlbums } from './services/Account';
 
 //Custom CSS for dynamically inserted rows of Albums
@@ -25,10 +25,10 @@ const columnStyle = {
 
 function Albums() {
 
-  const [albumName, setAlbumName] = useState('');
-  const [apiResponse, setApiResponse] = useState('Click the Get All Albums button to retrieve your albums');
+  const [albumName, setAlbumName] = useState('Name your album...');
+  const [apiResponse, setApiResponse] = useState('Click the Get All Albums button to retrieve the albums');
 
-    //Pull all albums and place in state
+    //Retrieve all albums, create rows of Albums then place in the state to display
     const retrieveAllAlbums = async () =>{
       const responseAlbums = await GetAllAlbums('a0f7fb78a4fab86','marvcid');
 
@@ -43,31 +43,34 @@ function Albums() {
 
     }
 
+    //**In Progress** - Purpose is to send a POST request to create a new album with user inputted name
   async function CreateAlbum(){
-    
+    const responseCreateAlbum = await CreateAlbum('2b3b12f1a681b411b2dde7fa7752e421ac77ed65',albumName);
   }
 
-  //Sets user entered input to the State
-  function handleInputChange(event){
-    //setAlbumName(event.target.value);
-    //this.setState({ [event.target.name] : event.target.value});
+  //Sets user entered input to the albumName state variable
+  function handleInputChange(albumName){
+    setAlbumName(albumName.target.value);
+  }
+  //Handles the onSubmit event to create a new album
+  const handleSubmit = (e) => {
+    CreateAlbum();
   }
 
 
   return (
     <div className="Albums">
       <header className="Albums-header">
-        <p>
           <h1 className="pageTitle">Albums</h1>
-        </p>
         <div>
           <p>
             Enter the name of your new album then hit the button. You can view your new album by clicking on the 'Get All Albums' button bellow
           </p>
-          <form onSubmit={()=>CreateAlbum()}>
-            <input name = 'albumTitle' 
-              onChange = {()=>handleInputChange} 
-              value = '' >
+          <form onSubmit={handleSubmit}>
+            <input type='text' name = 'albumTitle' 
+              onChange = {handleInputChange}
+              placeholder='Enter album name....' 
+              defaultValue = {albumName} >
             </input>
             <button type = 'submit'>Create Album</button>
           </form>
